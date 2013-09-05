@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Aufgabe: Auslagern von inline js</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<style>
+		body {
+			font-family:Verdana;
+			padding:25px;
+			text-align:justify;
+		}
+
+		h1 {
+			font-size:16px;
+			cursor:pointer;
+		}
+
+		.content {
+			width:450px;
+		}
+
+		#headerSwitch {
+			cursor:pointer;
+			float:left;
+			height:200px;
+		}
+
+	</style>
+
+	<script type="text/javascript">
+		function showInfo(event)
+		{
+			var x,y;
+
+			if (event.clientX) {
+				x = event.clientX;
+				y = event.clientY;
+			} else {
+				x = event.x;
+				y = event.y;
+			}
+
+			document.getElementById('coordInfo').innerHTML = 'x= ' + x + ', y=' + y;
+		}
+
+		var Switcher = function(headerId, contentId)
+		{
+			var _headerId = headerId;
+			var _contentId = contentId;
+			var _open = true;
+
+			this.flip = function()
+			{
+				var header = document.getElementById(_headerId);
+				var content = document.getElementById(_contentId);
+
+				if (_open) {
+					header.innerHTML = '&#9658;';
+					content.style.display = 'none';
+				} else {
+					header.innerHTML = '&#9660;';
+					content.style.display = 'block';
+				}
+
+				_open = !_open;
+			}
+		}
+
+		var switcher = new Switcher('headerSwitch', 'contentBlock');
+	</script>
+
+</head>
+<body>
+<div>
+	<span id="headerSwitch" onclick="switcher.flip()">&#9660;</span><h1 id="header" onclick="switcher.flip();">JS Practise, remove inline JS</h1>
+	<p id="contentBlock" class="content" onmousemove="showInfo(event);">
+		Task: Remove the complete inline JavaScript which is spreaded
+		all between the markup.
+		The aim is to provide the same functionality by adding just one
+		JS file. To keep it simple, the JS file should be added at the
+		end of the document, to prevent the need for document.ready handler.<br/>
+		<br/>
+		In the first step this refactoring should be done without the help
+		of any framework (no jQuery please) - Browser Support: Chrome, Firefox and IE 10<br/>
+		<br/>
+		Then, in the next step, please refactor the source again and replace all
+		plain vanilla JS source with the appropriate jQuery functions.
+	</p>
+	<div id="coordInfo"></div>
+</div>
+
+</body>
+</html>
